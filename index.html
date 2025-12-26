@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap">
     <style>
-        /* ALL STYLES REMAIN EXACTLY THE SAME */
         :root {
             --gold: #FFD700;
             --gold-light: #FFE55C;
@@ -1257,15 +1256,16 @@
     <div class="animated-bg">
         <div class="floating-shape shape-1"></div>
         <div class="floating-shape shape-2"></div>
-        <div class="floating-shape shape_3"></div>
+        <div class="floating-shape shape-3"></div>
     </div>
     
     <div class="stars" id="stars-container"></div>
     
+    <!-- Portal Access Password Overlay -->
     <div id="password-overlay">
         <div class="password-container">
             <h1><i class="fas fa-crown"></i> CROSSBREED</h1>
-            <p class="tagline">Public File Portal - Everyone Sees Everything</p>
+            <p class="tagline">Public File Portal - All Files Visible to Everyone</p>
             
             <div class="password-input">
                 <input type="password" id="password-input" placeholder="Enter portal password" autocomplete="off">
@@ -1278,10 +1278,11 @@
         </div>
     </div>
     
+    <!-- Download Password Overlay -->
     <div class="download-password-overlay" id="download-password-overlay">
         <div class="download-password-container">
             <h3><i class="fas fa-download"></i> Download Authorization</h3>
-            <p>To download files, please enter the download password.</p>
+            <p>To download files, please enter the download password. This ensures only authorized users can access sensitive files.</p>
             
             <input type="password" id="download-password-input" placeholder="Enter download password" autocomplete="off" class="download-password-input">
             
@@ -1298,6 +1299,7 @@
         </div>
     </div>
     
+    <!-- Admin Mode Badge -->
     <div class="admin-mode-badge" id="admin-mode-badge">
         <i class="fas fa-user-shield"></i> ADMIN MODE ACTIVE
     </div>
@@ -1310,7 +1312,7 @@
                 </div>
                 <div class="logo-text">
                     <h1>CROSSBREED</h1>
-                    <p>Public Dashboard - All Uploads Visible to All Users</p>
+                    <p>Public File System - Everyone Sees All Files</p>
                 </div>
             </div>
             
@@ -1341,12 +1343,15 @@
                 <form id="upload-form" class="upload-form">
                     <div class="form-group">
                         <label for="uploader-name"><i class="fas fa-user"></i> Your Full Name</label>
-                        <input type="text" id="uploader-name" placeholder="Enter your name" required>
+                        <input type="text" id="uploader-name" placeholder="Enter your full name (Will be shown to everyone)" required>
+                        <small style="color: #666; font-size: 0.85rem; margin-top: 5px;">
+                            <i class="fas fa-info-circle"></i> Your name will be visible to ALL users
+                        </small>
                     </div>
                     
                     <div class="form-group">
                         <label for="uploader-org"><i class="fas fa-building"></i> Organization</label>
-                        <input type="text" id="uploader-org" placeholder="Enter organization" required>
+                        <input type="text" id="uploader-org" placeholder="Enter your organization" required>
                     </div>
                     
                     <div class="form-group">
@@ -1364,12 +1369,12 @@
                     
                     <div class="form-group">
                         <label for="file-description"><i class="fas fa-align-left"></i> Description</label>
-                        <textarea id="file-description" placeholder="Describe the file" required></textarea>
+                        <textarea id="file-description" placeholder="Describe the file contents..." required></textarea>
                     </div>
                     
                     <div class="classified-checkbox">
                         <input type="checkbox" id="file-classified">
-                        <label for="file-classified"><i class="fas fa-lock"></i> Mark as Classified</label>
+                        <label for="file-classified"><i class="fas fa-lock"></i> Mark as Classified/Sensitive</label>
                     </div>
                     
                     <div class="form-group">
@@ -1379,7 +1384,10 @@
                                 <i class="fas fa-file-csv"></i>
                             </div>
                             <h3>Drag & Drop Files Here</h3>
-                            <p>or click to browse files</p>
+                            <p>or click to browse (CSV, Excel, PDF, Word, PowerPoint, Images, etc.)</p>
+                            <p style="margin-top: 10px; font-size: 0.85rem; color: #888;">
+                                Maximum file size: 200MB per file
+                            </p>
                             <input type="file" id="file-input" multiple>
                         </div>
                         
@@ -1408,20 +1416,20 @@
                 
                 <div class="csv-download-container">
                     <button class="csv-download-btn" id="export-all-csv">
-                        <i class="fas fa-file-csv"></i> Export All to CSV
+                        <i class="fas fa-file-csv"></i> Export All Files to CSV
                     </button>
                 </div>
                 
                 <div class="loading" id="loading-files">
                     <div class="spinner"></div>
-                    <p>Loading files...</p>
+                    <p>Loading all files...</p>
                 </div>
                 
                 <div class="files-list" id="files-list">
                     <div class="empty-state" id="empty-state">
                         <i class="fas fa-folder-open"></i>
                         <h3>No files uploaded yet</h3>
-                        <p>Upload your first file</p>
+                        <p>Upload your first file using the form on the left</p>
                     </div>
                 </div>
                 
@@ -1436,7 +1444,7 @@
                             <i class="fas fa-download"></i> Download Selected
                         </button>
                         <button class="bulk-btn bulk-csv-btn" id="bulk-csv">
-                            <i class="fas fa-file-csv"></i> Export to CSV
+                            <i class="fas fa-file-csv"></i> Export Selected to CSV
                         </button>
                         <button class="bulk-btn bulk-delete-btn" id="bulk-delete" disabled>
                             <i class="fas fa-trash"></i> Delete Selected
@@ -1449,11 +1457,13 @@
         <footer>
             <div class="footer-content">
                 <p>&copy; 2025 CROSSBREED. All Rights Reserved.</p>
-                <p>Public Dashboard - Every user sees all uploaded files</p>
+                <p>Public file portal - All uploaded files are visible to everyone who logs in</p>
                 <p class="storage-info">
-                    <i class="fas fa-eye"></i> Everyone sees all files | 
-                    <i class="fas fa-database"></i> 200MB per file |
-                    <i class="fas fa-shield-alt"></i> Password Protected
+                    <i class="fas fa-database"></i> 200MB per file, Unlimited Storage Available | 
+                    <i class="fas fa-shield-alt"></i> Dual Password Protection | 
+                    <i class="fas fa-file-csv"></i> CSV Export Functionality |
+                    <i class="fas fa-lock"></i> Classified Files Support |
+                    <i class="fas fa-eye"></i> Everyone Sees All Files
                 </p>
             </div>
         </footer>
@@ -1467,21 +1477,21 @@
             </div>
             <div class="notification-text">
                 <h4 id="notification-title">Success</h4>
-                <p id="notification-message">Operation completed</p>
+                <p id="notification-message">Operation completed successfully</p>
             </div>
         </div>
     </div>
     
     <script>
-        // PASSWORDS
+        // ========== PASSWORD CONFIGURATION ==========
         const PASSWORDS = {
-            PORTAL: "gambia@2025",
-            DOWNLOAD: "gambia@@@2025"
+            PORTAL: "gambia@2025",          // For accessing the portal
+            DOWNLOAD: "gambia@@@2025"       // For downloading files and admin privileges
         };
+        // ============================================
         
-        // CONFIG
         const CONFIG = {
-            STORAGE_KEY: "crossbreed_all_files_public",
+            STORAGE_KEY: "crossbreed_files",
             MAX_FILE_SIZE: 200 * 1024 * 1024,
             ALLOWED_TYPES: [
                 'text/csv',
@@ -1497,11 +1507,11 @@
                 'application/msword',
                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                 'application/vnd.ms-powerpoint',
-                'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'application/vnd.openxmlformats-officedocument.presentationml.slideshow'
             ]
         };
         
-        // STATE
         let state = {
             currentUser: null,
             currentOrg: null,
@@ -1510,13 +1520,13 @@
             uploadedFiles: [],
             allFilesSelected: false,
             currentFilter: 'all',
-            isAdminMode: false,
-            adminModeExpiry: null,
+            downloadPasswordVerified: false,
             pendingDownloadAction: null,
-            pendingDownloadParams: null
+            pendingDownloadParams: null,
+            isAdminMode: false,
+            adminModeExpiry: null
         };
         
-        // ELEMENTS
         const elements = {
             passwordOverlay: document.getElementById('password-overlay'),
             mainContent: document.getElementById('main-content'),
@@ -1554,8 +1564,6 @@
             downloadPasswordError: document.getElementById('download-password-error'),
             adminModeBadge: document.getElementById('admin-mode-badge')
         };
-        
-        // ========== CORE FUNCTIONS ==========
         
         function createStars() {
             const starsContainer = document.getElementById('stars-container');
@@ -1599,13 +1607,13 @@
             const ext = filename.split('.').pop().toLowerCase();
             if (ext === 'csv') return 'CSV';
             if (ext === 'pdf') return 'PDF';
-            if (['doc', 'docx'].includes(ext)) return 'Word';
-            if (['xls', 'xlsx'].includes(ext)) return 'Excel';
-            if (['jpg', 'jpeg'].includes(ext)) return 'JPEG';
-            if (ext === 'png') return 'PNG';
-            if (ext === 'gif') return 'GIF';
+            if (['doc', 'docx'].includes(ext)) return 'Word Document';
+            if (['xls', 'xlsx'].includes(ext)) return 'Excel Spreadsheet';
+            if (['jpg', 'jpeg'].includes(ext)) return 'JPEG Image';
+            if (ext === 'png') return 'PNG Image';
+            if (ext === 'gif') return 'GIF Image';
             if (['zip', 'rar', '7z'].includes(ext)) return 'Archive';
-            if (['ppt', 'pptx'].includes(ext)) return 'PowerPoint';
+            if (['ppt', 'pptx'].includes(ext)) return 'PowerPoint Presentation';
             return 'File';
         }
         
@@ -1646,7 +1654,91 @@
             });
         }
         
-        // ========== AUTH FUNCTIONS ==========
+        function downloadCSV(files, filename = 'crossbreed_files') {
+            if (files.length === 0) {
+                showNotification('No Files', 'No files to export', 'warning');
+                return;
+            }
+            
+            const headers = [
+                'File Name',
+                'Uploader Name',
+                'Organization',
+                'Purpose',
+                'Description',
+                'File Type',
+                'File Size',
+                'Upload Date',
+                'Classified'
+            ];
+            
+            let csvContent = headers.join(',') + '\n';
+            
+            files.forEach(file => {
+                const row = [
+                    `"${file.name.replace(/"/g, '""')}"`,
+                    `"${file.uploaderName.replace(/"/g, '""')}"`,
+                    `"${file.organization.replace(/"/g, '""')}"`,
+                    `"${file.purpose.replace(/"/g, '""')}"`,
+                    `"${file.description.replace(/"/g, '""')}"`,
+                    `"${getFileType(file.name)}"`,
+                    `"${formatFileSize(file.size)}"`,
+                    `"${formatDate(file.uploadedAt)}"`,
+                    `"${file.classified ? 'YES' : 'NO'}"`
+                ].join(',');
+                
+                csvContent += row + '\n';
+            });
+            
+            const encodedUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', `${filename}_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showNotification('CSV Downloaded', `${files.length} files exported to CSV`, 'success');
+        }
+        
+        function exportSingleFileCSV(fileId) {
+            const file = state.uploadedFiles.find(f => f.id === fileId);
+            if (file) {
+                downloadCSV([file], `file_${file.name.replace(/\.[^/.]+$/, '')}`);
+            }
+        }
+        
+        function exportSelectedFilesCSV() {
+            if (state.selectedFiles.length === 0) {
+                showNotification('No Selection', 'Please select files for CSV export', 'warning');
+                return;
+            }
+            
+            const filesToExport = state.uploadedFiles.filter(file => 
+                state.selectedFiles.includes(file.id)
+            );
+            
+            downloadCSV(filesToExport, 'crossbreed_selected_files');
+        }
+        
+        function exportAllFilesCSV() {
+            let filesToExport = state.uploadedFiles;
+            
+            if (state.currentFilter === 'classified') {
+                filesToExport = filesToExport.filter(file => file.classified);
+            } else if (state.currentFilter === 'csv') {
+                filesToExport = filesToExport.filter(file => file.name.toLowerCase().endsWith('.csv'));
+            }
+            
+            if (filesToExport.length === 0) {
+                showNotification('No Files', 'No files to export', 'warning');
+                return;
+            }
+            
+            downloadCSV(filesToExport, 'crossbreed_all_files');
+        }
+        
+        // ========== PASSWORD VERIFICATION FUNCTIONS ==========
         
         function checkAuth() {
             const isLoggedIn = sessionStorage.getItem('crossbreed_logged_in') === 'true';
@@ -1725,254 +1817,6 @@
             }
         }
         
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                sessionStorage.clear();
-                
-                state.isAuthenticated = false;
-                state.currentUser = null;
-                state.currentOrg = null;
-                state.selectedFiles = [];
-                state.isAdminMode = false;
-                state.adminModeExpiry = null;
-                
-                elements.mainContent.style.display = 'none';
-                elements.passwordOverlay.style.display = 'flex';
-                elements.passwordOverlay.style.opacity = '1';
-                elements.passwordInput.value = '';
-                elements.passwordError.textContent = '';
-                elements.passwordInput.style.borderColor = 'var(--gold)';
-                elements.adminModeBadge.style.display = 'none';
-                elements.adminStatus.style.display = 'none';
-                
-                resetUploadForm();
-                showNotification('Logged Out', 'You have been logged out', 'success');
-            }
-        }
-        
-        function updateUserDisplay() {
-            if (state.currentUser) {
-                elements.currentUserDisplay.textContent = `Portal Access: Active`;
-                elements.userNameDisplay.textContent = state.currentUser;
-            }
-        }
-        
-        // ========== FILE MANAGEMENT ==========
-        
-        function loadFiles() {
-            elements.loadingFiles.style.display = 'block';
-            elements.emptyState.style.display = 'none';
-            
-            setTimeout(() => {
-                try {
-                    const storedFiles = localStorage.getItem(CONFIG.STORAGE_KEY);
-                    state.uploadedFiles = storedFiles ? JSON.parse(storedFiles) : [];
-                    state.uploadedFiles.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
-                    
-                    renderFilesList();
-                    updateFilesCount();
-                    
-                    elements.loadingFiles.style.display = 'none';
-                    
-                    if (state.uploadedFiles.length === 0) {
-                        elements.emptyState.style.display = 'block';
-                    }
-                } catch (error) {
-                    console.error('Error loading files:', error);
-                    state.uploadedFiles = [];
-                    elements.loadingFiles.style.display = 'none';
-                    elements.emptyState.style.display = 'block';
-                    showNotification('Error', 'Failed to load files', 'error');
-                }
-            }, 500);
-        }
-        
-        function saveFiles() {
-            try {
-                localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(state.uploadedFiles));
-                return true;
-            } catch (error) {
-                console.error('Error saving files:', error);
-                showNotification('Storage Error', 'Failed to save files', 'error');
-                return false;
-            }
-        }
-        
-        // ========== KEY FIX: SHOW ALL FILES TO EVERYONE ==========
-        function renderFilesList() {
-            elements.filesList.innerHTML = '';
-            
-            // SHOW ALL FILES - NO FILTERING BY USER
-            let filesToShow = state.uploadedFiles;
-            
-            // Only apply type filters (classified, csv), NOT user filters
-            if (state.currentFilter === 'classified') {
-                filesToShow = filesToShow.filter(file => file.classified);
-            } else if (state.currentFilter === 'csv') {
-                filesToShow = filesToShow.filter(file => file.name.toLowerCase().endsWith('.csv'));
-            }
-            
-            if (filesToShow.length === 0) {
-                elements.emptyState.style.display = 'block';
-                elements.bulkActions.style.display = 'none';
-                return;
-            }
-            
-            elements.emptyState.style.display = 'none';
-            
-            filesToShow.forEach(file => {
-                const fileItem = document.createElement('div');
-                fileItem.className = `file-item ${file.classified ? 'classified' : ''} fade-in`;
-                fileItem.dataset.id = file.id;
-                
-                const isAdminDeletable = state.isAdminMode && file.uploaderName !== state.currentUser;
-                if (isAdminDeletable) {
-                    fileItem.classList.add('admin-deletable');
-                }
-                
-                const isSelected = state.selectedFiles.includes(file.id);
-                if (isSelected) {
-                    fileItem.style.borderColor = 'var(--gold)';
-                    fileItem.style.boxShadow = '0 5px 20px rgba(255, 215, 0, 0.2)';
-                }
-                
-                const fileIconClass = getFileIcon(file.name);
-                const fileType = getFileType(file.name);
-                const fileSize = formatFileSize(file.size);
-                const uploadDate = formatDate(file.uploadedAt);
-                
-                const canDelete = canDeleteFile(file);
-                
-                fileItem.innerHTML = `
-                    ${file.classified ? '<div class="classified-badge"><i class="fas fa-lock"></i> CLASSIFIED</div>' : ''}
-                    ${isAdminDeletable ? '<div class="classified-badge" style="background: var(--admin-color); top: 40px;"><i class="fas fa-user-shield"></i> ADMIN DELETE ONLY</div>' : ''}
-                    <div class="file-item-header">
-                        <div class="file-info">
-                            <div class="file-icon ${fileIconClass.split(' ')[0]}">
-                                <i class="${fileIconClass}"></i>
-                            </div>
-                            <div class="file-details">
-                                <h4>${file.name}</h4>
-                                <div class="file-meta">
-                                    <span><i class="fas fa-user"></i> ${file.uploaderName}</span>
-                                    <span><i class="fas fa-building"></i> ${file.organization}</span>
-                                    <span><i class="fas fa-tag"></i> ${file.purpose}</span>
-                                    <span><i class="fas fa-file"></i> ${fileType}</span>
-                                    <span><i class="fas fa-weight-hanging"></i> ${fileSize}</span>
-                                    <span><i class="fas fa-clock"></i> ${uploadDate}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="file-actions">
-                            <button class="action-btn download-btn" onclick="downloadFileNow('${file.id}')">
-                                <i class="fas fa-download"></i> Download
-                            </button>
-                            <button class="action-btn csv-btn" onclick="exportSingleFileCSVWithPassword('${file.id}')">
-                                <i class="fas fa-file-csv"></i> CSV
-                            </button>
-                            ${canDelete ? `
-                            <button class="action-btn ${isAdminDeletable ? 'admin-delete-btn' : 'delete-btn'}" onclick="deleteFile('${file.id}')">
-                                <i class="fas fa-trash"></i> ${isAdminDeletable ? 'Admin Delete' : 'Delete'}
-                            </button>
-                            ` : `
-                            <button class="action-btn delete-btn" disabled title="You can only delete your own files">
-                                <i class="fas fa-ban"></i> Delete
-                            </button>
-                            `}
-                        </div>
-                    </div>
-                    
-                    <div class="file-description">
-                        <div class="description-title">
-                            <i class="fas fa-align-left"></i> Description
-                        </div>
-                        <div class="description-text">
-                            ${file.description}
-                        </div>
-                    </div>
-                    
-                    <div class="uploader-info">
-                        <div class="uploader-details">
-                            <span><i class="fas fa-user-circle"></i> ${file.uploaderName}</span>
-                            <span><i class="fas fa-building"></i> ${file.organization}</span>
-                            <span><i class="fas fa-calendar"></i> ${uploadDate}</span>
-                            ${file.classified ? '<span style="color: var(--classified-red);"><i class="fas fa-lock"></i> Classified</span>' : ''}
-                            ${file.uploaderName === state.currentUser ? '<span style="color: var(--green);"><i class="fas fa-check-circle"></i> Your File</span>' : ''}
-                        </div>
-                        <div>
-                            <input type="checkbox" class="file-select" data-id="${file.id}" ${isSelected ? 'checked' : ''} 
-                                   onchange="toggleFileSelection('${file.id}', this.checked)">
-                            <label>Select</label>
-                        </div>
-                    </div>
-                `;
-                
-                elements.filesList.appendChild(fileItem);
-            });
-            
-            if (state.uploadedFiles.length > 0) {
-                elements.bulkActions.style.display = 'flex';
-                elements.bulkDelete.disabled = !state.isAdminMode;
-            }
-        }
-        
-        function updateFilesCount() {
-            let filesToCount = state.uploadedFiles;
-            
-            if (state.currentFilter === 'classified') {
-                filesToCount = filesToCount.filter(file => file.classified);
-            } else if (state.currentFilter === 'csv') {
-                filesToCount = filesToCount.filter(file => file.name.toLowerCase().endsWith('.csv'));
-            }
-            
-            const count = filesToCount.length;
-            elements.filesCount.textContent = `${count} File${count !== 1 ? 's' : ''}`;
-            elements.selectAllFiles.checked = state.allFilesSelected && count > 0;
-        }
-        
-        async function uploadFile(fileData) {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    const fileId = generateId();
-                    
-                    let fileContent = null;
-                    if (fileData.file instanceof File) {
-                        fileContent = await readFileAsDataURL(fileData.file);
-                    }
-                    
-                    const fileObj = {
-                        id: fileId,
-                        name: fileData.name,
-                        size: fileData.size,
-                        type: fileData.type,
-                        uploaderName: fileData.uploaderName,
-                        organization: fileData.organization,
-                        purpose: fileData.purpose,
-                        description: fileData.description,
-                        classified: fileData.classified || false,
-                        uploadedAt: new Date().toISOString(),
-                        content: fileContent
-                    };
-                    
-                    state.uploadedFiles.unshift(fileObj);
-                    
-                    if (saveFiles()) {
-                        renderFilesList();
-                        updateFilesCount();
-                        state.selectedFiles = [];
-                        state.allFilesSelected = false;
-                        resolve(fileId);
-                    } else {
-                        reject(new Error('Failed to save file'));
-                    }
-                } catch (error) {
-                    reject(error);
-                }
-            });
-        }
-        
-        // ========== DOWNLOAD PASSWORD FUNCTIONS ==========
-        
         function showDownloadPasswordOverlay(downloadAction, params = null) {
             state.pendingDownloadAction = downloadAction;
             state.pendingDownloadParams = params;
@@ -1995,6 +1839,8 @@
             const password = elements.downloadPasswordInput.value.trim();
             
             if (password === PASSWORDS.DOWNLOAD) {
+                state.downloadPasswordVerified = true;
+                
                 state.isAdminMode = true;
                 const expiryTime = Date.now() + 300000;
                 state.adminModeExpiry = expiryTime;
@@ -2015,12 +1861,13 @@
                     }
                 }
                 
-                showNotification('Admin Mode Activated', 'You now have admin privileges for 5 minutes', 'info');
+                showNotification('Admin Mode Activated', 'You now have administrator privileges for 5 minutes', 'info');
+                
                 renderFilesList();
                 
                 return true;
             } else {
-                elements.downloadPasswordError.textContent = "Invalid password";
+                elements.downloadPasswordError.textContent = "Invalid download password";
                 elements.downloadPasswordInput.style.borderColor = "#ff6b6b";
                 elements.downloadPasswordInput.style.animation = 'none';
                 setTimeout(() => {
@@ -2105,87 +1952,35 @@
                 return;
             }
             
-            let content = `CROSSBREED - File Export\n\n`;
-            content += `Export Date: ${new Date().toLocaleString()}\n`;
-            content += `Total Files: ${filesToDownload.length}\n\n`;
+            showNotification('Preparing Download', `Preparing ${filesToDownload.length} files`, 'success');
             
-            filesToDownload.forEach((file, index) => {
-                content += `FILE ${index + 1}: ${file.name}\n`;
-                content += `Uploaded By: ${file.uploaderName}\n`;
-                content += `Organization: ${file.organization}\n`;
-                content += `Purpose: ${file.purpose}\n`;
-                content += `Description: ${file.description}\n`;
-                content += `Classified: ${file.classified ? 'YES' : 'NO'}\n`;
-                content += `Upload Date: ${formatDate(file.uploadedAt)}\n`;
-                content += `File Size: ${formatFileSize(file.size)}\n`;
-                content += '─'.repeat(50) + '\n\n';
-            });
-            
-            const encodedUri = 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
-            const link = document.createElement('a');
-            link.setAttribute('href', encodedUri);
-            link.setAttribute('download', `crossbreed_export_${new Date().toISOString().split('T')[0]}.txt`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showNotification('Download Complete', `${filesToDownload.length} files downloaded`, 'success');
-        }
-        
-        // ========== CSV FUNCTIONS ==========
-        
-        function downloadCSV(files, filename = 'crossbreed_files') {
-            if (files.length === 0) {
-                showNotification('No Files', 'No files to export', 'warning');
-                return;
-            }
-            
-            const headers = [
-                'File Name',
-                'Uploader Name',
-                'Organization',
-                'Purpose',
-                'Description',
-                'File Type',
-                'File Size',
-                'Upload Date',
-                'Classified'
-            ];
-            
-            let csvContent = headers.join(',') + '\n';
-            
-            files.forEach(file => {
-                const row = [
-                    `"${file.name.replace(/"/g, '""')}"`,
-                    `"${file.uploaderName.replace(/"/g, '""')}"`,
-                    `"${file.organization.replace(/"/g, '""')}"`,
-                    `"${file.purpose.replace(/"/g, '""')}"`,
-                    `"${file.description.replace(/"/g, '""')}"`,
-                    `"${getFileType(file.name)}"`,
-                    `"${formatFileSize(file.size)}"`,
-                    `"${formatDate(file.uploadedAt)}"`,
-                    `"${file.classified ? 'YES' : 'NO'}"`
-                ].join(',');
+            setTimeout(() => {
+                let content = `CROSSBREED - File Export\n\n`;
+                content += `Export Date: ${new Date().toLocaleString()}\n`;
+                content += `Total Files: ${filesToDownload.length}\n\n`;
                 
-                csvContent += row + '\n';
-            });
-            
-            const encodedUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
-            const link = document.createElement('a');
-            link.setAttribute('href', encodedUri);
-            link.setAttribute('download', `${filename}_${new Date().toISOString().split('T')[0]}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showNotification('CSV Downloaded', `${files.length} files exported to CSV`, 'success');
-        }
-        
-        function exportSingleFileCSV(fileId) {
-            const file = state.uploadedFiles.find(f => f.id === fileId);
-            if (file) {
-                downloadCSV([file], `file_${file.name.replace(/\.[^/.]+$/, '')}`);
-            }
+                filesToDownload.forEach((file, index) => {
+                    content += `FILE ${index + 1}: ${file.name}\n`;
+                    content += `Uploaded By: ${file.uploaderName}\n`;
+                    content += `Organization: ${file.organization}\n`;
+                    content += `Purpose: ${file.purpose}\n`;
+                    content += `Description: ${file.description}\n`;
+                    content += `Classified: ${file.classified ? 'YES' : 'NO'}\n`;
+                    content += `Upload Date: ${formatDate(file.uploadedAt)}\n`;
+                    content += `File Size: ${formatFileSize(file.size)}\n`;
+                    content += '─'.repeat(50) + '\n\n';
+                });
+                
+                const encodedUri = 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
+                const link = document.createElement('a');
+                link.setAttribute('href', encodedUri);
+                link.setAttribute('download', `crossbreed_export_${new Date().toISOString().split('T')[0]}.txt`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showNotification('Download Complete', `${filesToDownload.length} files downloaded`, 'success');
+            }, 1000);
         }
         
         function exportSingleFileCSVWithPassword(fileId) {
@@ -2196,42 +1991,12 @@
             }
         }
         
-        function exportSelectedFilesCSV() {
-            if (state.selectedFiles.length === 0) {
-                showNotification('No Selection', 'Please select files for CSV export', 'warning');
-                return;
-            }
-            
-            const filesToExport = state.uploadedFiles.filter(file => 
-                state.selectedFiles.includes(file.id)
-            );
-            
-            downloadCSV(filesToExport, 'crossbreed_selected_files');
-        }
-        
         function exportSelectedFilesCSVWithPassword() {
             if (state.isAdminMode) {
                 exportSelectedFilesCSV();
             } else {
                 showDownloadPasswordOverlay(exportSelectedFilesCSV);
             }
-        }
-        
-        function exportAllFilesCSV() {
-            let filesToExport = state.uploadedFiles;
-            
-            if (state.currentFilter === 'classified') {
-                filesToExport = filesToExport.filter(file => file.classified);
-            } else if (state.currentFilter === 'csv') {
-                filesToExport = filesToExport.filter(file => file.name.toLowerCase().endsWith('.csv'));
-            }
-            
-            if (filesToExport.length === 0) {
-                showNotification('No Files', 'No files to export', 'warning');
-                return;
-            }
-            
-            downloadCSV(filesToExport, 'crossbreed_all_files');
         }
         
         function exportAllFilesCSVWithPassword() {
@@ -2264,13 +2029,17 @@
             }
             
             if (!canDeleteFile(file)) {
-                showNotification('Permission Denied', 'You can only delete your own files', 'error');
+                if (state.isAdminMode) {
+                    showNotification('Permission Denied', 'Only administrators can delete other users\' files', 'error');
+                } else {
+                    showNotification('Permission Denied', 'You can only delete your own files', 'error');
+                }
                 return;
             }
             
             let confirmMessage = 'Permanently delete this file?';
             if (state.isAdminMode && file.uploaderName !== state.currentUser) {
-                confirmMessage = `ADMIN ACTION: Delete "${file.name}" uploaded by ${file.uploaderName}?`;
+                confirmMessage = `ADMIN ACTION: Permanently delete "${file.name}" uploaded by ${file.uploaderName}?`;
             }
             
             if (confirm(confirmMessage)) {
@@ -2285,7 +2054,7 @@
                         updateFilesCount();
                         
                         if (state.isAdminMode && file.uploaderName !== state.currentUser) {
-                            showNotification('File Deleted', `"${fileName}" deleted by admin`, 'info');
+                            showNotification('File Deleted', `"${fileName}" (uploaded by ${file.uploaderName}) deleted by administrator`, 'info');
                         } else {
                             showNotification('File Deleted', `"${fileName}" deleted`, 'success');
                         }
@@ -2298,7 +2067,7 @@
         
         function bulkDelete() {
             if (!state.isAdminMode) {
-                showNotification('Permission Denied', 'Only admins can bulk delete', 'error');
+                showNotification('Permission Denied', 'Only administrators can perform bulk delete operations', 'error');
                 return;
             }
             
@@ -2324,11 +2093,15 @@
                 }
             });
             
-            let confirmMessage = `Delete ${selectedCount} files?`;
+            let confirmMessage = `Permanently delete ${selectedCount} files?`;
             if (adminDeleteCount > 0) {
                 confirmMessage = `ADMIN ACTION: Delete ${selectedCount} files?\n`;
-                if (ownDeleteCount > 0) confirmMessage += `- ${ownDeleteCount} of your own files\n`;
-                if (adminDeleteCount > 0) confirmMessage += `- ${adminDeleteCount} files uploaded by others`;
+                if (ownDeleteCount > 0) {
+                    confirmMessage += `- ${ownDeleteCount} of your own files\n`;
+                }
+                if (adminDeleteCount > 0) {
+                    confirmMessage += `- ${adminDeleteCount} files uploaded by other users`;
+                }
             }
             
             if (confirm(confirmMessage)) {
@@ -2342,7 +2115,7 @@
                     
                     let message = `${selectedCount} files deleted`;
                     if (adminDeleteCount > 0) {
-                        message = `${selectedCount} files deleted (${adminDeleteCount} by admin)`;
+                        message = `${selectedCount} files deleted (${adminDeleteCount} by admin authority)`;
                     }
                     showNotification('Files Deleted', message, 'info');
                 } else {
@@ -2351,7 +2124,293 @@
             }
         }
         
-        // ========== SELECTION FUNCTIONS ==========
+        // ========== KEY FIX: ENSURE EVERYONE SEES ALL FILES ==========
+        
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                sessionStorage.removeItem('crossbreed_logged_in');
+                sessionStorage.removeItem('crossbreed_user');
+                sessionStorage.removeItem('crossbreed_org');
+                sessionStorage.removeItem('crossbreed_admin_mode');
+                sessionStorage.removeItem('crossbreed_admin_expiry');
+                
+                state.isAuthenticated = false;
+                state.currentUser = null;
+                state.currentOrg = null;
+                state.selectedFiles = [];
+                state.downloadPasswordVerified = false;
+                state.isAdminMode = false;
+                state.adminModeExpiry = null;
+                
+                elements.mainContent.style.display = 'none';
+                elements.passwordOverlay.style.display = 'flex';
+                elements.passwordOverlay.style.opacity = '1';
+                elements.passwordInput.value = '';
+                elements.passwordError.textContent = '';
+                elements.passwordInput.style.borderColor = 'var(--gold)';
+                elements.adminModeBadge.style.display = 'none';
+                elements.adminStatus.style.display = 'none';
+                
+                resetUploadForm();
+                showNotification('Logged Out', 'You have been logged out', 'success');
+            }
+        }
+        
+        function updateUserDisplay() {
+            if (state.currentUser) {
+                elements.currentUserDisplay.textContent = `Portal Access: Active`;
+                elements.userNameDisplay.textContent = state.currentUser;
+            }
+        }
+        
+        function loadFiles() {
+            elements.loadingFiles.style.display = 'block';
+            elements.emptyState.style.display = 'none';
+            
+            setTimeout(() => {
+                try {
+                    const storedFiles = localStorage.getItem(CONFIG.STORAGE_KEY);
+                    state.uploadedFiles = storedFiles ? JSON.parse(storedFiles) : [];
+                    // Sort by date, newest first
+                    state.uploadedFiles.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
+                    
+                    // CRITICAL FIX: ALWAYS show ALL files to EVERYONE
+                    renderFilesList();
+                    updateFilesCount();
+                    
+                    elements.loadingFiles.style.display = 'none';
+                    
+                    if (state.uploadedFiles.length === 0) {
+                        elements.emptyState.style.display = 'block';
+                    }
+                    
+                    // Set up auto-refresh to show new files
+                    if (!window.filesRefreshInterval) {
+                        window.filesRefreshInterval = setInterval(() => {
+                            if (state.isAuthenticated) {
+                                const freshFiles = localStorage.getItem(CONFIG.STORAGE_KEY);
+                                if (freshFiles) {
+                                    const freshList = JSON.parse(freshFiles);
+                                    if (freshList.length !== state.uploadedFiles.length) {
+                                        state.uploadedFiles = freshList;
+                                        state.uploadedFiles.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
+                                        renderFilesList();
+                                        updateFilesCount();
+                                    }
+                                }
+                            }
+                        }, 3000); // Refresh every 3 seconds
+                    }
+                } catch (error) {
+                    console.error('Error loading files:', error);
+                    state.uploadedFiles = [];
+                    elements.loadingFiles.style.display = 'none';
+                    elements.emptyState.style.display = 'block';
+                    showNotification('Error', 'Failed to load files', 'error');
+                }
+            }, 500);
+        }
+        
+        function saveFiles() {
+            try {
+                localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(state.uploadedFiles));
+                return true;
+            } catch (error) {
+                console.error('Error saving files:', error);
+                showNotification('Storage Error', 'Failed to save files', 'error');
+                return false;
+            }
+        }
+        
+        function renderFilesList() {
+            elements.filesList.innerHTML = '';
+            
+            // KEY FIX: ALWAYS show ALL files to EVERYONE
+            let filesToShow = state.uploadedFiles;
+            
+            if (state.currentFilter === 'classified') {
+                filesToShow = filesToShow.filter(file => file.classified);
+            } else if (state.currentFilter === 'csv') {
+                filesToShow = filesToShow.filter(file => file.name.toLowerCase().endsWith('.csv'));
+            }
+            
+            if (filesToShow.length === 0) {
+                elements.emptyState.style.display = 'block';
+                elements.bulkActions.style.display = 'none';
+                return;
+            }
+            
+            elements.emptyState.style.display = 'none';
+            
+            // IMPORTANT: Show ALL files to EVERY user
+            filesToShow.forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = `file-item ${file.classified ? 'classified' : ''} fade-in`;
+                fileItem.dataset.id = file.id;
+                
+                const isAdminDeletable = state.isAdminMode && file.uploaderName !== state.currentUser;
+                if (isAdminDeletable) {
+                    fileItem.classList.add('admin-deletable');
+                }
+                
+                const isSelected = state.selectedFiles.includes(file.id);
+                if (isSelected) {
+                    fileItem.style.borderColor = 'var(--gold)';
+                    fileItem.style.boxShadow = '0 5px 20px rgba(255, 215, 0, 0.2)';
+                }
+                
+                const fileIconClass = getFileIcon(file.name);
+                const fileType = getFileType(file.name);
+                const fileSize = formatFileSize(file.size);
+                const uploadDate = formatDate(file.uploadedAt);
+                
+                const canDelete = canDeleteFile(file);
+                
+                fileItem.innerHTML = `
+                    ${file.classified ? '<div class="classified-badge"><i class="fas fa-lock"></i> CLASSIFIED</div>' : ''}
+                    ${isAdminDeletable ? '<div class="classified-badge" style="background: var(--admin-color); top: 40px;"><i class="fas fa-user-shield"></i> ADMIN DELETE ONLY</div>' : ''}
+                    <div class="file-item-header">
+                        <div class="file-info">
+                            <div class="file-icon ${fileIconClass.split(' ')[0]}">
+                                <i class="${fileIconClass}"></i>
+                            </div>
+                            <div class="file-details">
+                                <h4>${file.name}</h4>
+                                <div class="file-meta">
+                                    <span><i class="fas fa-user"></i> ${file.uploaderName}</span>
+                                    <span><i class="fas fa-building"></i> ${file.organization}</span>
+                                    <span><i class="fas fa-tag"></i> ${file.purpose}</span>
+                                    <span><i class="fas fa-file"></i> ${fileType}</span>
+                                    <span><i class="fas fa-weight-hanging"></i> ${fileSize}</span>
+                                    <span><i class="fas fa-clock"></i> ${uploadDate}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="action-btn download-btn" onclick="downloadFileNow('${file.id}')">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="action-btn csv-btn" onclick="exportSingleFileCSVWithPassword('${file.id}')">
+                                <i class="fas fa-file-csv"></i> CSV
+                            </button>
+                            ${canDelete ? `
+                            <button class="action-btn ${isAdminDeletable ? 'admin-delete-btn' : 'delete-btn'}" onclick="deleteFile('${file.id}')">
+                                <i class="fas fa-trash"></i> ${isAdminDeletable ? 'Admin Delete' : 'Delete'}
+                            </button>
+                            ` : `
+                            <button class="action-btn delete-btn" disabled title="You can only delete your own files">
+                                <i class="fas fa-ban"></i> Delete
+                            </button>
+                            `}
+                        </div>
+                    </div>
+                    
+                    <div class="file-description">
+                        <div class="description-title">
+                            <i class="fas fa-align-left"></i> Description
+                        </div>
+                        <div class="description-text">
+                            ${file.description}
+                        </div>
+                    </div>
+                    
+                    <div class="uploader-info">
+                        <div class="uploader-details">
+                            <span><i class="fas fa-user-circle"></i> ${file.uploaderName}</span>
+                            <span><i class="fas fa-building"></i> ${file.organization}</span>
+                            <span><i class="fas fa-calendar"></i> Uploaded: ${uploadDate}</span>
+                            ${file.classified ? '<span style="color: var(--classified-red);"><i class="fas fa-lock"></i> Classified</span>' : ''}
+                            ${file.uploaderName === state.currentUser ? '<span style="color: var(--green);"><i class="fas fa-check-circle"></i> Your File</span>' : ''}
+                        </div>
+                        <div>
+                            <input type="checkbox" class="file-select" data-id="${file.id}" ${isSelected ? 'checked' : ''} 
+                                   onchange="toggleFileSelection('${file.id}', this.checked)">
+                            <label>Select</label>
+                        </div>
+                    </div>
+                `;
+                
+                elements.filesList.appendChild(fileItem);
+            });
+            
+            if (state.uploadedFiles.length > 0) {
+                elements.bulkActions.style.display = 'flex';
+                
+                elements.bulkDelete.disabled = !state.isAdminMode;
+                if (state.isAdminMode) {
+                    elements.bulkDelete.title = "Admin can delete selected files";
+                } else {
+                    elements.bulkDelete.title = "Only administrators can perform bulk delete";
+                }
+            }
+        }
+        
+        function updateFilesCount() {
+            let filesToCount = state.uploadedFiles;
+            
+            if (state.currentFilter === 'classified') {
+                filesToCount = filesToCount.filter(file => file.classified);
+            } else if (state.currentFilter === 'csv') {
+                filesToCount = filesToCount.filter(file => file.name.toLowerCase().endsWith('.csv'));
+            }
+            
+            const count = filesToCount.length;
+            elements.filesCount.textContent = `${count} File${count !== 1 ? 's' : ''}`;
+            elements.selectAllFiles.checked = state.allFilesSelected && count > 0;
+        }
+        
+        async function uploadFile(fileData) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const fileId = generateId();
+                    
+                    let fileContent = null;
+                    if (fileData.file instanceof File) {
+                        fileContent = await readFileAsDataURL(fileData.file);
+                    }
+                    
+                    const fileObj = {
+                        id: fileId,
+                        name: fileData.name,
+                        size: fileData.size,
+                        type: fileData.type,
+                        uploaderName: fileData.uploaderName,
+                        organization: fileData.organization,
+                        purpose: fileData.purpose,
+                        description: fileData.description,
+                        classified: fileData.classified || false,
+                        uploadedAt: new Date().toISOString(),
+                        content: fileContent
+                    };
+                    
+                    state.uploadedFiles.unshift(fileObj);
+                    
+                    if (saveFiles()) {
+                        // Notify all users that a new file was uploaded
+                        showNotification('Upload Successful', `${fileData.name} uploaded (Visible to everyone)`, 'success');
+                        
+                        state.currentUser = fileData.uploaderName;
+                        state.currentOrg = fileData.organization;
+                        sessionStorage.setItem('crossbreed_user', fileData.uploaderName);
+                        sessionStorage.setItem('crossbreed_org', fileData.organization);
+                        
+                        // Update the display immediately
+                        renderFilesList();
+                        updateFilesCount();
+                        updateUserDisplay();
+                        
+                        state.selectedFiles = [];
+                        state.allFilesSelected = false;
+                        
+                        resolve(fileId);
+                    } else {
+                        reject(new Error('Failed to save file'));
+                    }
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
         
         function toggleFileSelection(fileId, isSelected) {
             if (isSelected) {
@@ -2424,10 +2483,10 @@
             
             state.selectedFiles = [];
             state.allFilesSelected = false;
-            elements.selectAllFiles.checked = false;
+            document.querySelectorAll('.file-select').forEach(checkbox => {
+                checkbox.checked = false;
+            });
         }
-        
-        // ========== UPLOAD FORM FUNCTIONS ==========
         
         let selectedFilesData = [];
         
@@ -2437,6 +2496,17 @@
             elements.selectedFilesContainer.innerHTML = '';
             elements.submitUpload.disabled = true;
             elements.fileClassified.checked = false;
+            updateUserInfo();
+        }
+        
+        function updateUserInfo() {
+            const userName = sessionStorage.getItem('crossbreed_user');
+            const userOrg = sessionStorage.getItem('crossbreed_org');
+            
+            if (userName && userOrg) {
+                document.getElementById('uploader-name').value = userName;
+                document.getElementById('uploader-org').value = userOrg;
+            }
         }
         
         function handleFileSelect(files) {
@@ -2446,7 +2516,7 @@
                 const file = files[i];
                 
                 if (file.size > CONFIG.MAX_FILE_SIZE) {
-                    showNotification('File Too Large', `"${file.name}" exceeds 200MB`, 'error');
+                    showNotification('File Too Large', `"${file.name}" exceeds 200MB limit`, 'error');
                     continue;
                 }
                 
@@ -2530,13 +2600,6 @@
                     await uploadFile(fileData);
                 }
                 
-                showNotification('Upload Successful', `${selectedFilesData.length} files uploaded (Visible to everyone)`, 'success');
-                
-                state.currentUser = uploaderName;
-                state.currentOrg = organization;
-                sessionStorage.setItem('crossbreed_user', uploaderName);
-                sessionStorage.setItem('crossbreed_org', organization);
-                
                 resetUploadForm();
                 updateUserDisplay();
                 
@@ -2563,8 +2626,17 @@
                     10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
                     20%, 40%, 60%, 80% { transform: translateX(5px); }
                 }
+                .fade-in {
+                    animation: fadeIn 0.5s ease-in;
+                }
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
             `;
             document.head.appendChild(style);
+            
+            updateUserInfo();
             
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -2572,6 +2644,7 @@
                 });
             });
             
+            // Check admin mode expiry every minute
             setInterval(() => {
                 if (state.isAdminMode && state.adminModeExpiry && Date.now() > state.adminModeExpiry) {
                     state.isAdminMode = false;
@@ -2582,7 +2655,8 @@
                     elements.adminModeBadge.style.display = 'none';
                     elements.adminStatus.style.display = 'none';
                     
-                    showNotification('Admin Mode Expired', 'Admin privileges expired', 'warning');
+                    showNotification('Admin Mode Expired', 'Administrator privileges have expired', 'warning');
+                    
                     renderFilesList();
                 }
             }, 60000);
@@ -2651,6 +2725,13 @@
         window.removeSelectedFile = removeSelectedFile;
         window.selectAllFiles = selectAllFiles;
         window.exportSingleFileCSV = exportSingleFileCSVWithPassword;
+        
+        // Clear interval on page unload
+        window.addEventListener('beforeunload', function() {
+            if (window.filesRefreshInterval) {
+                clearInterval(window.filesRefreshInterval);
+            }
+        });
     </script>
 </body>
 </html>
