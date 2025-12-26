@@ -1275,8 +1275,6 @@
             </div>
             
             <div class="error-message" id="password-error"></div>
-            
-            <!-- PASSWORD HINT SECTION REMOVED HERE -->
         </div>
     </div>
     
@@ -1298,8 +1296,6 @@
             </div>
             
             <div class="download-password-error" id="download-password-error"></div>
-            
-            <!-- DOWNLOAD PASSWORD HINT SECTION REMOVED HERE -->
         </div>
     </div>
     
@@ -1416,7 +1412,6 @@
                     <button class="filter-btn active" data-filter="all">All Files</button>
                     <button class="filter-btn" data-filter="classified">Classified Only</button>
                     <button class="filter-btn" data-filter="csv">CSV Files</button>
-                    <button class="filter-btn" data-filter="myfiles" id="my-files-filter">My Files Only</button>
                 </div>
                 
                 <div class="csv-download-container">
@@ -1497,7 +1492,7 @@
         
         const CONFIG = {
             STORAGE_KEY: "crossbreed_files",
-            MAX_FILE_SIZE: 200 * 1024 * 1024, // Changed from 50MB to 200MB
+            MAX_FILE_SIZE: 200 * 1024 * 1024,
             ALLOWED_TYPES: [
                 'text/csv',
                 'application/vnd.ms-excel',
@@ -1567,8 +1562,7 @@
             confirmDownloadBtn: document.getElementById('confirm-download-btn'),
             cancelDownloadBtn: document.getElementById('cancel-download-btn'),
             downloadPasswordError: document.getElementById('download-password-error'),
-            adminModeBadge: document.getElementById('admin-mode-badge'),
-            myFilesFilter: document.getElementById('my-files-filter')
+            adminModeBadge: document.getElementById('admin-mode-badge')
         };
         
         function createStars() {
@@ -1734,8 +1728,6 @@
                 filesToExport = filesToExport.filter(file => file.classified);
             } else if (state.currentFilter === 'csv') {
                 filesToExport = filesToExport.filter(file => file.name.toLowerCase().endsWith('.csv'));
-            } else if (state.currentFilter === 'myfiles') {
-                filesToExport = filesToExport.filter(file => file.uploaderName === state.currentUser);
             }
             
             if (filesToExport.length === 0) {
@@ -1760,7 +1752,6 @@
                 state.currentUser = user;
                 state.currentOrg = org;
                 
-                // Check if admin mode is still valid
                 if (adminMode && adminExpiry) {
                     const expiryTime = parseInt(adminExpiry);
                     if (Date.now() < expiryTime) {
@@ -1850,22 +1841,18 @@
             if (password === PASSWORDS.DOWNLOAD) {
                 state.downloadPasswordVerified = true;
                 
-                // Activate admin mode
                 state.isAdminMode = true;
-                const expiryTime = Date.now() + 300000; // 5 minutes
+                const expiryTime = Date.now() + 300000;
                 state.adminModeExpiry = expiryTime;
                 
-                // Store admin mode in session storage
                 sessionStorage.setItem('crossbreed_admin_mode', 'true');
                 sessionStorage.setItem('crossbreed_admin_expiry', expiryTime.toString());
                 
-                // Show admin mode badge
                 elements.adminModeBadge.style.display = 'flex';
                 elements.adminStatus.style.display = 'block';
                 
                 hideDownloadPasswordOverlay();
                 
-                // Execute the pending download action
                 if (state.pendingDownloadAction) {
                     if (state.pendingDownloadParams) {
                         state.pendingDownloadAction(state.pendingDownloadParams);
@@ -1876,7 +1863,6 @@
                 
                 showNotification('Admin Mode Activated', 'You now have administrator privileges for 5 minutes', 'info');
                 
-                // Update the file list to show delete buttons for admin
                 renderFilesList();
                 
                 return true;
@@ -1896,10 +1882,9 @@
             }
         }
         
-        // ========== MODIFIED DOWNLOAD FUNCTIONS WITH PASSWORD CHECK ==========
+        // ========== MODIFIED DOWNLOAD FUNCTIONS ==========
         
         function downloadFileNow(fileId) {
-            // Check if download password is already verified (admin mode)
             if (state.isAdminMode) {
                 executeDownloadFile(fileId);
             } else {
@@ -1998,7 +1983,6 @@
             }, 1000);
         }
         
-        // CSV exports also require download password
         function exportSingleFileCSVWithPassword(fileId) {
             if (state.isAdminMode) {
                 exportSingleFileCSV(fileId);
@@ -2023,15 +2007,13 @@
             }
         }
         
-        // ========== ENHANCED DELETE FUNCTIONS ==========
+        // ========== DELETE FUNCTIONS ==========
         
         function canDeleteFile(file) {
-            // Admin can delete any file
             if (state.isAdminMode) {
                 return true;
             }
             
-            // User can delete their own files
             if (file.uploaderName === state.currentUser) {
                 return true;
             }
@@ -2084,7 +2066,6 @@
         }
         
         function bulkDelete() {
-            // Only admin can perform bulk delete
             if (!state.isAdminMode) {
                 showNotification('Permission Denied', 'Only administrators can perform bulk delete operations', 'error');
                 return;
@@ -2097,7 +2078,6 @@
                 return;
             }
             
-            // Get files to delete
             const filesToDelete = state.uploadedFiles.filter(file => 
                 state.selectedFiles.includes(file.id)
             );
@@ -2231,8 +2211,6 @@
                 filesToShow = filesToShow.filter(file => file.classified);
             } else if (state.currentFilter === 'csv') {
                 filesToShow = filesToShow.filter(file => file.name.toLowerCase().endsWith('.csv'));
-            } else if (state.currentFilter === 'myfiles') {
-                filesToShow = filesToShow.filter(file => file.uploaderName === state.currentUser);
             }
             
             if (filesToShow.length === 0) {
@@ -2248,7 +2226,6 @@
                 fileItem.className = `file-item ${file.classified ? 'classified' : ''} fade-in`;
                 fileItem.dataset.id = file.id;
                 
-                // Check if this file is deletable by admin but not by current user
                 const isAdminDeletable = state.isAdminMode && file.uploaderName !== state.currentUser;
                 if (isAdminDeletable) {
                     fileItem.classList.add('admin-deletable');
@@ -2265,7 +2242,6 @@
                 const fileSize = formatFileSize(file.size);
                 const uploadDate = formatDate(file.uploadedAt);
                 
-                // Check if current user can delete this file
                 const canDelete = canDeleteFile(file);
                 
                 fileItem.innerHTML = `
@@ -2338,7 +2314,6 @@
             if (state.uploadedFiles.length > 0) {
                 elements.bulkActions.style.display = 'flex';
                 
-                // Enable/disable bulk delete button based on admin mode
                 elements.bulkDelete.disabled = !state.isAdminMode;
                 if (state.isAdminMode) {
                     elements.bulkDelete.title = "Admin can delete selected files";
@@ -2355,8 +2330,6 @@
                 filesToCount = filesToCount.filter(file => file.classified);
             } else if (state.currentFilter === 'csv') {
                 filesToCount = filesToCount.filter(file => file.name.toLowerCase().endsWith('.csv'));
-            } else if (state.currentFilter === 'myfiles') {
-                filesToCount = filesToCount.filter(file => file.uploaderName === state.currentUser);
             }
             
             const count = filesToCount.length;
@@ -2432,15 +2405,12 @@
             state.allFilesSelected = isSelected;
             
             if (isSelected) {
-                // Only select files that are visible based on current filter
                 let filesToShow = state.uploadedFiles;
                 
                 if (state.currentFilter === 'classified') {
                     filesToShow = filesToShow.filter(file => file.classified);
                 } else if (state.currentFilter === 'csv') {
                     filesToShow = filesToShow.filter(file => file.name.toLowerCase().endsWith('.csv'));
-                } else if (state.currentFilter === 'myfiles') {
-                    filesToShow = filesToShow.filter(file => file.uploaderName === state.currentUser);
                 }
                 
                 state.selectedFiles = filesToShow.map(file => file.id);
@@ -2477,7 +2447,6 @@
             renderFilesList();
             updateFilesCount();
             
-            // Reset selection when filter changes
             state.selectedFiles = [];
             state.allFilesSelected = false;
             document.querySelectorAll('.file-select').forEach(checkbox => {
@@ -2599,7 +2568,6 @@
                 
                 showNotification('Upload Successful', `${selectedFilesData.length} files uploaded`, 'success');
                 
-                // Update current user in state and session storage
                 state.currentUser = uploaderName;
                 state.currentOrg = organization;
                 sessionStorage.setItem('crossbreed_user', uploaderName);
@@ -2642,7 +2610,6 @@
                 });
             });
             
-            // Check admin mode expiry every minute
             setInterval(() => {
                 if (state.isAdminMode && state.adminModeExpiry && Date.now() > state.adminModeExpiry) {
                     state.isAdminMode = false;
@@ -2655,10 +2622,9 @@
                     
                     showNotification('Admin Mode Expired', 'Administrator privileges have expired', 'warning');
                     
-                    // Re-render files to remove admin delete buttons
                     renderFilesList();
                 }
-            }, 60000); // Check every minute
+            }, 60000);
         });
         
         elements.loginBtn.addEventListener('click', login);
@@ -2666,7 +2632,6 @@
             if (e.key === 'Enter') login();
         });
         
-        // Updated CSV export to require download password
         elements.exportAllCsv.addEventListener('click', exportAllFilesCSVWithPassword);
         
         elements.logoutBtn.addEventListener('click', logout);
@@ -2706,12 +2671,10 @@
             selectAllFiles(e.target.checked);
         });
         
-        // Updated bulk actions to require download password
         elements.bulkDownload.addEventListener('click', bulkDownload);
         elements.bulkCsv.addEventListener('click', exportSelectedFilesCSVWithPassword);
         elements.bulkDelete.addEventListener('click', bulkDelete);
         
-        // Download password overlay events
         elements.confirmDownloadBtn.addEventListener('click', verifyDownloadPassword);
         elements.cancelDownloadBtn.addEventListener('click', hideDownloadPasswordOverlay);
         elements.downloadPasswordInput.addEventListener('keypress', (e) => {
@@ -2720,13 +2683,13 @@
         
         elements.notificationClose.addEventListener('click', hideNotification);
         
-        // ========== EXPORT FUNCTIONS TO WINDOW OBJECT ==========
+        // ========== EXPORT FUNCTIONS ==========
         window.downloadFileNow = downloadFileNow;
         window.deleteFile = deleteFile;
         window.toggleFileSelection = toggleFileSelection;
         window.removeSelectedFile = removeSelectedFile;
         window.selectAllFiles = selectAllFiles;
-        window.exportSingleFileCSV = exportSingleFileCSVWithPassword; // Updated to use password-protected version
+        window.exportSingleFileCSV = exportSingleFileCSVWithPassword;
     </script>
 </body>
 </html>
