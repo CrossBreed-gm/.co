@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CROSSBREED | Secure File Portal</title>
+    <title>CROSSBREED | Team File Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap">
     <style>
@@ -1265,7 +1265,7 @@
     <div id="password-overlay">
         <div class="password-container">
             <h1><i class="fas fa-crown"></i> CROSSBREED</h1>
-            <p class="tagline">Secure File Portal - Professional Access Only</p>
+            <p class="tagline">Team File Portal - Shared Access for All Members</p>
             
             <div class="password-input">
                 <input type="password" id="password-input" placeholder="Enter portal password" autocomplete="off">
@@ -1312,7 +1312,7 @@
                 </div>
                 <div class="logo-text">
                     <h1>CROSSBREED</h1>
-                    <p>Professional File Management System</p>
+                    <p>Team File Management System - Shared Dashboard</p>
                 </div>
             </div>
             
@@ -1345,13 +1345,13 @@
                         <label for="uploader-name"><i class="fas fa-user"></i> Your Full Name</label>
                         <input type="text" id="uploader-name" placeholder="Enter your full name (Required for file ownership)" required>
                         <small style="color: #666; font-size: 0.85rem; margin-top: 5px;">
-                            <i class="fas fa-info-circle"></i> This name will be used to identify you as the file owner
+                            <i class="fas fa-info-circle"></i> Your name will be visible to all team members
                         </small>
                     </div>
                     
                     <div class="form-group">
-                        <label for="uploader-org"><i class="fas fa-building"></i> Organization</label>
-                        <input type="text" id="uploader-org" placeholder="Enter your organization" required>
+                        <label for="uploader-org"><i class="fas fa-building"></i> Organization/Department</label>
+                        <input type="text" id="uploader-org" placeholder="Enter your organization or department" required>
                     </div>
                     
                     <div class="form-group">
@@ -1395,7 +1395,7 @@
                     </div>
                     
                     <button type="submit" class="upload-btn" id="submit-upload" disabled>
-                        <i class="fas fa-upload"></i> Upload File
+                        <i class="fas fa-upload"></i> Upload File to Shared Dashboard
                     </button>
                 </form>
             </section>
@@ -1403,13 +1403,13 @@
             <section class="files-section">
                 <div class="files-header">
                     <h2 class="section-title">
-                        <i class="fas fa-folder-open"></i> Uploaded Files
+                        <i class="fas fa-folder-open"></i> Team Files Dashboard
                     </h2>
                     <div class="files-count" id="files-count">0 Files</div>
                 </div>
                 
                 <div class="file-filters">
-                    <button class="filter-btn active" data-filter="all">All Files</button>
+                    <button class="filter-btn active" data-filter="all">All Team Files</button>
                     <button class="filter-btn" data-filter="classified">Classified Only</button>
                     <button class="filter-btn" data-filter="csv">CSV Files</button>
                 </div>
@@ -1422,21 +1422,21 @@
                 
                 <div class="loading" id="loading-files">
                     <div class="spinner"></div>
-                    <p>Loading files...</p>
+                    <p>Loading team files...</p>
                 </div>
                 
                 <div class="files-list" id="files-list">
                     <div class="empty-state" id="empty-state">
                         <i class="fas fa-folder-open"></i>
                         <h3>No files uploaded yet</h3>
-                        <p>Upload your first file using the form on the left</p>
+                        <p>Upload your first file to the shared team dashboard</p>
                     </div>
                 </div>
                 
                 <div class="bulk-actions" id="bulk-actions" style="display: none;">
                     <div class="select-all">
                         <input type="checkbox" id="select-all-files">
-                        <label for="select-all-files">Select All Files</label>
+                        <label for="select-all-files">Select All Team Files</label>
                     </div>
                     
                     <div class="bulk-buttons">
@@ -1457,13 +1457,13 @@
         <footer>
             <div class="footer-content">
                 <p>&copy; 2025 CROSSBREED. All Rights Reserved.</p>
-                <p>Professional file portal with secure access | CSV download functionality enabled</p>
+                <p>Team file portal with shared access | Everyone sees all uploads | CSV download functionality enabled</p>
                 <p class="storage-info">
                     <i class="fas fa-database"></i> 200MB per file, Unlimited Storage Available | 
                     <i class="fas fa-shield-alt"></i> Dual Password Protection | 
                     <i class="fas fa-file-csv"></i> CSV Export Functionality |
                     <i class="fas fa-lock"></i> Classified Files Support |
-                    <i class="fas fa-user-shield"></i> Admin-Only Deletion Protection
+                    <i class="fas fa-users"></i> Shared Dashboard for All Team Members
                 </p>
             </div>
         </footer>
@@ -1797,7 +1797,7 @@
                     createStars();
                     updateUserDisplay();
                     loadFiles();
-                    showNotification('Access Granted', 'Welcome to CROSSBREED', 'success');
+                    showNotification('Access Granted', 'Welcome to CROSSBREED Team Portal', 'success');
                 }, 300);
                 
                 elements.passwordInput.value = '';
@@ -1882,7 +1882,7 @@
             }
         }
         
-        // ========== MODIFIED DOWNLOAD FUNCTIONS ==========
+        // ========== DOWNLOAD FUNCTIONS ==========
         
         function downloadFileNow(fileId) {
             if (state.isAdminMode) {
@@ -2124,7 +2124,7 @@
             }
         }
         
-        // ========== END OF MODIFIED DELETE FUNCTIONS ==========
+        // ========== END OF DELETE FUNCTIONS ==========
         
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
@@ -2202,10 +2202,11 @@
             }
         }
         
+        // ========== THE KEY CHANGE: EVERYONE SEES ALL FILES ==========
         function renderFilesList() {
             elements.filesList.innerHTML = '';
             
-            let filesToShow = state.uploadedFiles;
+            let filesToShow = state.uploadedFiles; // ALWAYS show ALL files to EVERYONE
             
             if (state.currentFilter === 'classified') {
                 filesToShow = filesToShow.filter(file => file.classified);
@@ -2322,6 +2323,7 @@
                 }
             }
         }
+        // ========== END OF KEY CHANGE ==========
         
         function updateFilesCount() {
             let filesToCount = state.uploadedFiles;
@@ -2566,7 +2568,7 @@
                     await uploadFile(fileData);
                 }
                 
-                showNotification('Upload Successful', `${selectedFilesData.length} files uploaded`, 'success');
+                showNotification('Upload Successful', `${selectedFilesData.length} files uploaded to team dashboard`, 'success');
                 
                 state.currentUser = uploaderName;
                 state.currentOrg = organization;
@@ -2581,7 +2583,7 @@
                 showNotification('Upload Failed', 'Upload error occurred', 'error');
             } finally {
                 elements.submitUpload.disabled = false;
-                elements.submitUpload.innerHTML = '<i class="fas fa-upload"></i> Upload File';
+                elements.submitUpload.innerHTML = '<i class="fas fa-upload"></i> Upload File to Shared Dashboard';
             }
         }
         
